@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
@@ -18,10 +20,14 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    GameData data;
+
     // Start is called before the first frame update
     void Start()
     {
+        data = new GameData();
+
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -65,6 +71,7 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
+        DataManager.instance.score = m_Points;  
         ScoreText.text = $"Score : {m_Points}";
     }
 
@@ -72,5 +79,19 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    public void SaveData()
+    {
+        data.bestScore = m_Points;
+        data.bestPlayerName = DataManager.instance.playerName;
+        DataManager.instance.SaveData(data);
+        
+    }
+
+    public void OnApplicationQuit()
+    {
+    
+        SaveData();
     }
 }
