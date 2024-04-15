@@ -22,12 +22,29 @@ public class MainManager : MonoBehaviour
 
     GameData data;
 
-    // Start is called before the first frame update
-    void Start()
+    
+    public int bestScore;
+    public string bestPlayer;
+
+    //Player Info
+
+    public Text currentPlayer;
+    public Text bestScoreAndPlayer;
+
+
+
+
+    private void Awake()
     {
         data = new GameData();
+        LoadGameRecord();
+        
+    }
 
 
+    void Start()
+    {
+  
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -42,6 +59,10 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        currentPlayer.text = DataManager.instance.playerName;
+
+        SetCurrentRecord();
     }
 
     private void Update()
@@ -68,6 +89,7 @@ public class MainManager : MonoBehaviour
         }
     }
 
+
     void AddPoint(int point)
     {
         m_Points += point;
@@ -75,23 +97,60 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"Score : {m_Points}";
     }
 
+
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        CheckGameRecord();
     }
 
-    public void SaveData()
+    private void CheckGameRecord()
     {
-        data.bestScore = m_Points;
-        data.bestPlayerName = DataManager.instance.playerName;
-        DataManager.instance.SaveData(data);
+        int curretnScore = DataManager.instance.score;
+        
+
+        if (curretnScore > bestScore)
+        {
+            bestScore = curretnScore;
+            bestPlayer = DataManager.instance.playerName;
+
+            bestScoreAndPlayer.text = $"Best Score - {bestScore}:{bestPlayer}";
+
+            SaveGameRecord(bestScore, bestPlayer);
+        }
+    }
+
+    private void SetCurrentRecord()
+    {
+        if (bestPlayer == null && bestScore == 0)
+        {
+            bestScoreAndPlayer.text = "";
+        }
+        else
+        {
+            bestScoreAndPlayer.text = $"Best Score - {bestScore}:{bestPlayer}";
+        }
+    }
+
+    public void SaveGameRecord(int BestPlayerScore, string BestPlayerName)
+    {
+  
+        data.score = BestPlayerScore;
+        data.playerName = BestPlayerName;
+
+        DataManager.instance.SaveData(ref data);
         
     }
 
-    public void OnApplicationQuit()
+    public void LoadGameRecord()
     {
-    
-        SaveData();
+        DataManager.instance.LoadData();
+
+        bestScore = data.score;
+        bestPlayer = data.playerName;
+ 
     }
+
+   
 }

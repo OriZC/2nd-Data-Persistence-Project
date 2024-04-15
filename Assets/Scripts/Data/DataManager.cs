@@ -9,11 +9,11 @@ public class DataManager : MonoBehaviour
 
   public static DataManager instance;
 
+    public int bestScore;
+    public string bestPlayer;
 
-    
     public string playerName;
     public int score;
-
 
     private void Awake()
     {
@@ -21,16 +21,25 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SaveData(GameData data)
+    public void SaveData(ref GameData data)
 
     {
    
-        string dataToSave = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", dataToSave);
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
     public void LoadData()
     {
+     
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            JsonUtility.FromJson<GameData>(json);
+
+        }
 
     }
 
