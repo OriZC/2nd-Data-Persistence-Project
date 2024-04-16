@@ -59,7 +59,6 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
-
         currentPlayer.text = DataManager.instance.playerName;
 
         SetCurrentRecord();
@@ -79,6 +78,7 @@ public class MainManager : MonoBehaviour
                 Ball.transform.SetParent(null);
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
+            
         }
         else if (m_GameOver)
         {
@@ -108,16 +108,16 @@ public class MainManager : MonoBehaviour
     private void CheckGameRecord()
     {
         int curretnScore = DataManager.instance.score;
-        
+        string currentPlayerName = DataManager.instance.playerName;
 
         if (curretnScore > bestScore)
         {
+            bestPlayer = currentPlayerName;
             bestScore = curretnScore;
-            bestPlayer = DataManager.instance.playerName;
 
-            bestScoreAndPlayer.text = $"Best Score - {bestScore}:{bestPlayer}";
+            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
 
-            SaveGameRecord(bestScore, bestPlayer);
+            SaveGameRecord(bestPlayer, bestScore);
         }
     }
 
@@ -129,16 +129,15 @@ public class MainManager : MonoBehaviour
         }
         else
         {
-            bestScoreAndPlayer.text = $"Best Score - {bestScore}:{bestPlayer}";
+            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
         }
     }
 
-    public void SaveGameRecord(int BestPlayerScore, string BestPlayerName)
+    public void SaveGameRecord(string BestPlayerName, int BestPlayerScore)
     {
-  
-        data.score = BestPlayerScore;
-        data.playerName = BestPlayerName;
-
+        data.playerData = BestPlayerName;
+        data.scoreData = BestPlayerScore;
+    
         DataManager.instance.SaveData(ref data);
         
     }
@@ -147,8 +146,8 @@ public class MainManager : MonoBehaviour
     {
         DataManager.instance.LoadData();
 
-        bestScore = data.score;
-        bestPlayer = data.playerName;
+        bestScore = data.scoreData;
+        bestPlayer = data.playerData;
  
     }
 
