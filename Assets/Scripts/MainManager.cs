@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class MainManager : MonoBehaviour
+public class MainManager : MonoBehaviour, IDataPersistence
 {
     public Brick BrickPrefab;
     public int LineCount = 6;
@@ -20,11 +20,14 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    GameData data;
+    //LAst
+    private int currentScore;
 
     
     public int bestScore;
     public string bestPlayer;
+
+   
 
     //Player Info
 
@@ -36,9 +39,10 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
-        data = new GameData();
-        LoadGameRecord();
         
+        
+        //ShowCurrentRecord();
+
     }
 
 
@@ -60,8 +64,7 @@ public class MainManager : MonoBehaviour
             }
         }
         currentPlayer.text = DataManager.instance.playerName;
-
-        SetCurrentRecord();
+          
     }
 
     private void Update()
@@ -87,13 +90,14 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+        
     }
 
 
     void AddPoint(int point)
     {
         m_Points += point;
-        DataManager.instance.score = m_Points;  
+        DataManager.instance.score = m_Points;
         ScoreText.text = $"Score : {m_Points}";
     }
 
@@ -102,54 +106,35 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        CheckGameRecord();
+        PrintGameRecord();
     }
 
-    private void CheckGameRecord()
+    private void PrintGameRecord()
     {
-        int curretnScore = DataManager.instance.score;
-        string currentPlayerName = DataManager.instance.playerName;
-
-        if (curretnScore > bestScore)
-        {
-            bestPlayer = currentPlayerName;
-            bestScore = curretnScore;
-
-            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
-
-            SaveGameRecord(bestPlayer, bestScore);
-        }
-    }
-
-    private void SetCurrentRecord()
-    {
-        if (bestPlayer == null && bestScore == 0)
-        {
-            bestScoreAndPlayer.text = "";
-        }
-        else
-        {
-            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
-        }
-    }
-
-    public void SaveGameRecord(string BestPlayerName, int BestPlayerScore)
-    {
-        data.playerData = BestPlayerName;
-        data.scoreData = BestPlayerScore;
-    
-        DataManager.instance.SaveData(ref data);
         
-    }
+        string currentPlayerName = currentPlayer.text;
 
-    public void LoadGameRecord()
-    {
-        DataManager.instance.LoadData();
+       
+            bestPlayer = currentPlayerName;
+            bestScore = m_Points;
 
-        bestScore = data.scoreData;
-        bestPlayer = data.playerData;
- 
-    }
-
+            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
    
+    }
+
+  
+
+    public void SaveData(GameData data)
+    {
+        data.scoreData = bestScore;
+
+    }
+
+    public void LoadData( GameData data)
+    {
+        
+        bestScore = data.scoreData;
+    }
+
+  
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuHandler : MonoBehaviour
+public class MenuHandler : MonoBehaviour, IDataPersistence
 {
     [SerializeField] Text playerNameInput;
 
@@ -25,5 +25,15 @@ public class MenuHandler : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void LoadData(GameData data)
+    {
+        playerNameInput.text = data.playerData;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerData = playerNameInput.text;
     }
 }

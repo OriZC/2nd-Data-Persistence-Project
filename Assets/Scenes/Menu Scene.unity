@@ -950,79 +950,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288419726}
   m_CullTransparentMesh: 1
---- !u!1001 &1451750556
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3485872616212810490, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_Name
-      value: MainManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.1474351
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.223435
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.3827579
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4487162101500221418, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8584745825236375388, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: ScoreText
-      value: 
-      objectReference: {fileID: 65556621355342540, guid: dc7b8cef1ecdf8e48bc76fee88306408, type: 3}
-    - target: {fileID: 8584745825236375388, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: GameOverText
-      value: 
-      objectReference: {fileID: 6392645676367107519, guid: ada6576b67c864f40b33e7d356fe53cc, type: 3}
-    - target: {fileID: 8584745825236375388, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: currentPlayer
-      value: 
-      objectReference: {fileID: 2869713273041516575, guid: 10e3b7d636644a84e8f1e2380d39c425, type: 3}
-    - target: {fileID: 8584745825236375388, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
-      propertyPath: bestScoreAndPlayer
-      value: 
-      objectReference: {fileID: 4999672279861753793, guid: 06231d4e5898fa44d8f01b6f86ad550d, type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d12d9eb818c52ea49b4b00b2c8d9595c, type: 3}
 --- !u!1 &1501858745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,9 +1326,6 @@ MonoBehaviour:
       m_Calls: []
   m_OnDidEndEdit:
     m_PersistentCalls:
-      m_Calls: []
-  m_OnValueChanged:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 500273131}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
@@ -1415,6 +1339,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1490,6 +1417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314d9917d3c244947bdbec32bebf4800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: newsave.json
+  useEncryption: 0
   playerName: 
   score: 0
 --- !u!4 &2043164680
@@ -1516,4 +1445,3 @@ SceneRoots:
   - {fileID: 500273130}
   - {fileID: 1604551936}
   - {fileID: 2043164680}
-  - {fileID: 1451750556}
