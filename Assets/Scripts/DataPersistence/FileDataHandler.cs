@@ -4,12 +4,14 @@ using UnityEngine;
 using System;
 using System.IO;
 
-public class FileDataHandler
+public  class FileDataHandler
 {
     private string dataDirPath = "";
     private string dataFileName = "";
     private bool useEncryption = false;
+
     private readonly string encryptionCodeWord = "word";
+
 
     public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
     {
@@ -17,10 +19,8 @@ public class FileDataHandler
         this.dataFileName = dataFileName;
         this.useEncryption = useEncryption;
     }
-
     public GameData Load()
     {
-        // use Path.Combine to account for different OS's having different path separators
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
         if (File.Exists(fullPath))
@@ -56,7 +56,6 @@ public class FileDataHandler
 
     public void Save(GameData data)
     {
-        // use Path.Combine to account for different OS's having different path separators
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         try
         {

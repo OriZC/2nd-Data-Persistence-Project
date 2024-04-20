@@ -1417,10 +1417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314d9917d3c244947bdbec32bebf4800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: newsave.json
+  fileName: last.json
   useEncryption: 0
   playerName: 
-  score: 0
 --- !u!4 &2043164680
 Transform:
   m_ObjectHideFlags: 0

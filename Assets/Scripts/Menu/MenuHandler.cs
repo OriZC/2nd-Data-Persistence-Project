@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuHandler : MonoBehaviour, IDataPersistence
+public class MenuHandler : MonoBehaviour
 {
     [SerializeField] Text playerNameInput;
 
     public void EnterPlayerName()
     {
-        DataManager.instance.playerName = playerNameInput.text;
+        DataManager.Instance.playerName = playerNameInput.text;
     }
    public void StartGame()
     {
@@ -27,13 +27,5 @@ public class MenuHandler : MonoBehaviour, IDataPersistence
 #endif
     }
 
-    public void LoadData(GameData data)
-    {
-        playerNameInput.text = data.playerData;
-    }
-
-    public void SaveData(GameData data)
-    {
-        data.playerData = playerNameInput.text;
-    }
+  
 }
