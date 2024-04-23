@@ -941,7 +941,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Best Score:'
+  m_Text: text name
 --- !u!222 &1288419729
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1420,6 +1420,9 @@ MonoBehaviour:
   fileName: last.json
   useEncryption: 0
   playerName: 
+  score: 0
+  bestScoreAndPlayer: {fileID: 1288419728}
+  currentPlayer: {fileID: 668033530}
 --- !u!4 &2043164680
 Transform:
   m_ObjectHideFlags: 0

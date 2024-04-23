@@ -19,29 +19,31 @@ public class MainManager : MonoBehaviour, IDataPersistence
     public Text bestScoreAndPlayer;
 
     //variables for holding best player data
-    public int bestScore;
-    public string bestPlayer;
+    public static int bestScore;
+    public static string bestPlayer;
+
+    public int highScore = 0;
 
     public void Awake()
     {
         currentPlayer.text = DataManager.Instance.playerName;
-       
+        SetBestPlayer();
+
     }
 
 
-    private void PrintGameRecord()
+    private void CheckRecord()
     {
 
         int CurrentScore = DataManager.Instance.score;
-        //if (CurrentScore > bestScore)
-        //{
-        bestPlayer = currentPlayer.text;
+        if (CurrentScore > bestScore)
+        {
+            bestPlayer = currentPlayer.text;
             bestScore = CurrentScore;
 
             bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
-        //}
+        }
     }
-
     private void SetBestPlayer()
     {
         if (bestPlayer == null && bestScore == 0)
@@ -54,12 +56,14 @@ public class MainManager : MonoBehaviour, IDataPersistence
         }
     }
 
+
     public void GameOver()
     {
 
         m_GameOver = true;
         GameOverText.SetActive(true);
-        PrintGameRecord();
+        CheckRecord();
+        
    
     }
     public void SaveData(GameData data)
@@ -71,6 +75,7 @@ public class MainManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-
+        DataManager.Instance.score = data.scoreData;
+        bestPlayer = data.playerData;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DataManager : MonoBehaviour
 {
@@ -20,11 +21,19 @@ public class DataManager : MonoBehaviour
     public string playerName;
     public int score;
 
+    public Text bestScoreAndPlayer;
+    public Text currentPlayer;
+
+    //variables for holding best player data
+    private static int bestScore;
+    private static string bestPlayer;
+
     public static DataManager Instance;
 
 
     private void Awake()
     {
+
         if (Instance != null)
         {
             Debug.Log("Found more than one Data Persistence Manager in the scene. Destroying the newest one.");
@@ -35,6 +44,7 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        
     }
 
     private void OnEnable()
@@ -58,7 +68,9 @@ public class DataManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         this.dataPersistenceObjects = FindDataPersinstenceObjects();
+        
         LoadGame();
+        bestScoreAndPlayer.text = $"Best Score - {gameData.playerData} : {gameData.scoreData}";
     }
 
     public void OnSceneUnloaded(Scene scene)
@@ -71,6 +83,7 @@ public class DataManager : MonoBehaviour
         this.gameData = new GameData();
     }
 
+   
     public void LoadGame()
     {
         // load any saved data from a file using the data handler
@@ -85,8 +98,9 @@ public class DataManager : MonoBehaviour
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.LoadData(gameData);
-        }
 
+        }
+        
     }
 
     public void SaveGame()
