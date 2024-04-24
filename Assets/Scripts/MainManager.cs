@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class MainManager : MonoBehaviour, IDataPersistence
    
     public bool m_GameOver = false;
     public GameObject GameOverText;
-    
+    private GameData gameData;
 
     //Player Info
 
@@ -19,29 +20,57 @@ public class MainManager : MonoBehaviour, IDataPersistence
     public Text bestScoreAndPlayer;
 
     //variables for holding best player data
-    public static int bestScore;
-    public static string bestPlayer;
+    public int bestScore;
+    public string bestPlayer;
 
-    public int highScore = 0;
+    
 
     public void Awake()
     {
+        
         currentPlayer.text = DataManager.Instance.playerName;
+        gameData = DataManager.Instance.gameData;
         SetBestPlayer();
+        
 
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+       
+    }
+
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+
+        
+        DataManager.Instance.LoadGame();
+        bestScoreAndPlayer.text = $"Best Score - {gameData.playerData} : {gameData.scoreData}";
+    }
 
     private void CheckRecord()
     {
 
         int CurrentScore = DataManager.Instance.score;
-        if (CurrentScore > bestScore)
+        if (CurrentScore > gameData.scoreData)
         {
             bestPlayer = currentPlayer.text;
             bestScore = CurrentScore;
 
             bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
+        }
+        else
+        {
+            bestPlayer = gameData.playerData;
+            bestScore = gameData.scoreData;
         }
     }
     private void SetBestPlayer()
@@ -52,11 +81,9 @@ public class MainManager : MonoBehaviour, IDataPersistence
         }
         else
         {
-            bestScoreAndPlayer.text = $"Best Score - {bestPlayer}:{bestScore}";
+            bestScoreAndPlayer.text = $"Best Score - {gameData.playerData} : {gameData.scoreData}";
         }
     }
-
-
     public void GameOver()
     {
 
@@ -69,7 +96,7 @@ public class MainManager : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
 
-        data.scoreData = DataManager.Instance.score;
+        data.scoreData = bestScore;
         data.playerData = bestPlayer;
     }
 
