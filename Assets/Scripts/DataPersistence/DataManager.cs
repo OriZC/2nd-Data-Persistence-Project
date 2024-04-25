@@ -24,10 +24,6 @@ public class DataManager : MonoBehaviour
     public Text bestScoreAndPlayer;
     public Text currentPlayer;
 
-    //variables for holding best player data
-    private static int bestScore;
-    private static string bestPlayer;
-
     public static DataManager Instance;
 
 

@@ -30,9 +30,7 @@ public class MainManager : MonoBehaviour, IDataPersistence
         
         currentPlayer.text = DataManager.Instance.playerName;
         gameData = DataManager.Instance.gameData;
-        SetBestPlayer();
-        
-
+ 
     }
 
     private void OnEnable()
@@ -51,7 +49,6 @@ public class MainManager : MonoBehaviour, IDataPersistence
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
 
-        
         DataManager.Instance.LoadGame();
         bestScoreAndPlayer.text = $"Best Score - {gameData.playerData} : {gameData.scoreData}";
     }
@@ -73,26 +70,16 @@ public class MainManager : MonoBehaviour, IDataPersistence
             bestScore = gameData.scoreData;
         }
     }
-    private void SetBestPlayer()
-    {
-        if (bestPlayer == null && bestScore == 0)
-        {
-            bestScoreAndPlayer.text = "";
-        }
-        else
-        {
-            bestScoreAndPlayer.text = $"Best Score - {gameData.playerData} : {gameData.scoreData}";
-        }
-    }
+  
     public void GameOver()
     {
 
         m_GameOver = true;
         GameOverText.SetActive(true);
         CheckRecord();
-        
-   
+  
     }
+
     public void SaveData(GameData data)
     {
 

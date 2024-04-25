@@ -1418,7 +1418,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: last.json
-  useEncryption: 0
+  useEncryption: 1
+  gameData:
+    scoreData: 0
+    playerData: 
   playerName: 
   score: 0
   bestScoreAndPlayer: {fileID: 1288419728}
